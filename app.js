@@ -1,12 +1,23 @@
 const express = require("express");
+const sqlite3 = require("sqlite3");
 
-const PORT = 3000;
+const PORT = 8000;
 
 const app = express();
 
-const index = "<a href='/sobre'>Sobre</a><br><a href='/info'>Info</a>";
-const sobre = 'Vc esta na pagina "sobre" <br><a href="/">Voltar</a>';
-const info = 'Vc esta na pagina "info" <br><a href="/">Voltar</a>';
+const db = new sqlite3.Database("user.db");
+
+db.serialize(() => {
+  db.run(
+    "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)"
+  );
+});
+
+const index =
+  "<a href='/'>Home</a><br><a href='/login'>Login</a><br><a href='/senha'>Senha</a><br><a href='/cadastro'>Cadastro</a>";
+const Sobre = 'Vc esta na pagina "login" <br><a href="/">Voltar</a>';
+const Login = 'Vc esta na pagina "senha" <br><a href="/">Voltar</a>';
+const Cadastro = 'Vc esta na pagina "cadastro" <br><a href="/">Voltar</a>';
 
 /* Método express.get necessita de dois paârametros
 na ARROW FUNCTION, o primeiro são os dados do servidor(REQUISITION - 'REQ')
@@ -17,17 +28,16 @@ app.get("/", (req, res) => {
   res.send(index);
 });
 
-app.get("/sobre", (req, res) => {
-  res.send(sobre);
+app.get("/login", (req, res) => {
+  res.send(Sobre);
 });
 
-app.get("/info", (req, res) => {
-  res.send(info);
+app.get("/senha", (req, res) => {
+  res.send(Login);
 });
-
-//app.get("/sextou", (req, res) => {
-// res.send("Sextou com S de SENAS");
-//});
+app.get("/cadastro", (req, res) => {
+  res.send(Cadastro);
+});
 
 // app.listes() deve ser o ultimo comando da aplicação (app.js)
 app.listen(PORT, () => {
