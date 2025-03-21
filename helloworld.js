@@ -15,5 +15,5 @@ app.get("/", (req, res) => {
 
 // app.listes() deve ser o ultimo comando da aplicação (app.js)
 app.listen(PORT, () => {
-  console.log(`Servidor sendo executado na porta ${PORT}`);
+  Console.log(`Servidor sendo executado na porta ${PORT}`);
 });
