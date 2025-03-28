@@ -15,16 +15,22 @@ db.serialize(() => {
   );
 });
 
+// é a variavel interno do nodejs que guarda o caminho absoluto do projeto, no SO
+console.log(__dirname);
+
+//aqui sera acrescentado uma rota "/static", para a pasta __DIRNAME + "/static"
+//o app.use é usado para acrescentar rotas novas para o Express gerenciar e pode usar
+//Middleware para isto, que neste caso é o express.static, que gerencia rotas estaticas
 app.use("/static", express.static(__dirname + "/static"));
 
 //Configurar EJS como o motor de visualização
 app.set("view engine", "ejs");
 
-const index =
-  "<a href='/'>Home</a><br><a href='/login'>Login</a><br><a href='/senha'>Senha</a><br><a href='/cadastro'>Cadastro</a>";
-const Sobre = 'Vc esta na pagina "login" <br><a href="/">Voltar</a>';
-const Login = 'Vc esta na pagina "senha" <br><a href="/">Voltar</a>';
-const Cadastro = 'Vc esta na pagina "cadastro" <br><a href="/">Voltar</a>';
+// const index =
+//   "<a href='/'>Home</a><br><a href='/login'>Login</a><br><a href='/senha'>Senha</a><br><a href='/cadastro'>Cadastro</a>";
+// const Sobre = 'Vc esta na pagina "login" <br><a href="/">Voltar</a>';
+// const Login = 'Vc esta na pagina "senha" <br><a href="/">Voltar</a>';
+// const Cadastro = 'Vc esta na pagina "cadastro" <br><a href="/">Voltar</a>';
 
 /* Método express.get necessita de dois paârametros
 na ARROW FUNCTION, o primeiro são os dados do servidor(REQUISITION - 'REQ')
@@ -32,6 +38,7 @@ o segundo, são os dados que serão enviados para ao cliente (RESULE - "RES")
 
 */
 app.get("/", (req, res) => {
+  //Rota raiz do meu servidor, acesse o browser com o endereço http://localhost:8000
   res.render("index");
 });
 

@@ -5,26 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atividade Formulario</title>
 
-    <link rel="stylesheet" href="/static/styles/styles.css" />
+    <link rel="stylesheet" href="./styles/styles.css" />
 
-    <!-- <script src="/static/scripts/scripts.js" defer></script> -->
+    <script src="./scripts/scripts.js" defer></script>
   </head>
   <body>
+    <div class="container_rain">
+      <span class="cloud"></span>
+      <span class="cloud"></span>
+      <span class="cloud"></span>
+    </div>
+
     <section class="container">
       <div class="image_container">
-        <h1>Bem vindo!!!</h1>
+        <h1>Crie sua conta</h1>
         <p>
           Compartilhe suas aventuras <br />
           descubra novos lugares ao redor do mundo !
         </p>
       </div>
-      <form id="cadastroForm" action="/login" method="post">
+      <form id="cadastroForm">
         <div class="title">
           <h1>Cadastre-se</h1>
           <p>Preencha os campos abaixo e torne-se parte da nossa comunidade.</p>
         </div>
         <div class="input_data">
-          <input type="text" id="nome" name="username" required />
+          <input type="text" id="nome" name="nome" required />
           <label for="">Nome</label>
         </div>
 
@@ -33,15 +39,22 @@
           <label for="">Email</label>
         </div> -->
         <div class="input_data">
-          <input type="password" id="senha" name="password" required />
+          <input type="password" id="senha" name="senha" required />
           <label for="">Senha</label>
         </div>
-
         <!-- <div class="input_data">
-          <input type="text" id="CPF" name="CPF" required />
-          <label for="">CPF</label>
+          <input type="password" id="ConSenha" name="ConSenha" required />
+          <label for="">Confirmar Senha</label>
         </div> -->
         <!-- <div class="input_data">
+          <input type="tel" id="Celular" name="Celular" required />
+          <label for="">Celular</label>
+        </div>
+        <div class="input_data">
+          <input type="text" id="CPF" name="CPF" required />
+          <label for="">CPF</label>
+        </div>
+        <div class="input_data">
           <input type="text" id="RG" name="RG" required />
           <label for="">RG</label>
         </div> -->
