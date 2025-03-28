@@ -19,12 +19,6 @@ const checkNome = () => {
   return nomeRegex.test(nome.value);
 };
 
-/* ---------- FUNÇÃO PARA VERIFICAR IGUALDADE DAS SENHAS --------------- */
-function checkPasswordMatch() {
-  return senha.value === ConSenha.value ? true : false;
-}
-/* --------------------------------------------------------------------- */
-
 const checkEmail = (email) => {
   const partesEmail = email.split("@");
 
@@ -40,6 +34,8 @@ const checkEmail = (email) => {
     return false;
   }
 };
+
+function XXX() {}
 
 function maskPhoneNumber(event) {
   let celular = event.target.value;
@@ -73,7 +69,7 @@ function checkPasswordStrength(senha) {
   if (!/[A-Z]/.test(senha)) {
     return "A senha deve ter pelo menos uma letra maiúscula!";
   }
-  if (!/[\W_]/.test(senha)) {
+  if (!/[W_]/.test(senha)) {
     return "A senha deve ter pelo menos um caracter especial!";
   }
   if (!/\d/.test(senha)) {
@@ -86,127 +82,39 @@ function checkPasswordStrength(senha) {
   return null;
 }
 
-function maskCPF(event) {
-  let CPF = event.target.value;
-
-  if (/[A-Za-zÁ-ÿ]/.test(CPF)) {
-    createDisplayMsgError("O CPF precisa ter apenas numeros");
-  } else {
-    createDisplayMsgError("");
-  }
-  CPF = CPF.replace(/\D/g, "");
-
-  if (CPF.length > 11) {
-    CPF = CPF.substring(0, 11);
-  }
-
-  if (CPF.length > 3) {
-    CPF = `${CPF.substring(0, 3)}.${CPF.substring(3)}`;
-  } else if (CPF.length > 0) {
-    CPF = `${CPF}`;
-  }
-
-  if (CPF.length > 7) {
-    CPF = `${CPF.substring(0, 7)}.${CPF.substring(7)}`;
-  } else if (CPF.length > 0) {
-    CPF = `${CPF}`;
-  }
-
-  if (CPF.length > 11) {
-    CPF = `${CPF.substring(0, 11)}-${CPF.substring(11)}`;
-  } else if (CPF.length > 0) {
-    CPF = `${CPF}`;
-  }
-
-  event.target.value = CPF;
-}
-
-function maskRG(event) {
-  let RG = event.target.value;
-
-  if (/[A-Za-zÁ-ÿ]/.test(RG)) {
-    createDisplayMsgError("O RG precisa ter apenas numeros");
-  } else {
-    createDisplayMsgError("");
-  }
-  RG = RG.replace(/\D/g, "");
-
-  if (RG.length > 9) {
-    RG = RG.substring(0, 9);
-  }
-
-  if (RG.length > 2) {
-    RG = `${RG.substring(0, 2)}.${RG.substring(2)}`;
-  } else if (RG.length > 0) {
-    RG = `${RG}`;
-  }
-
-  if (RG.length > 6) {
-    RG = `${RG.substring(0, 6)}.${RG.substring(6)}`;
-  } else if (RG.length > 0) {
-    RG = `${RG}`;
-  }
-
-  if (RG.length > 10) {
-    RG = `${RG.substring(0, 10)}-${RG.substring(10)}`;
-  } else if (RG.length > 0) {
-    RG = `${RG}`;
-  }
-
-  event.target.value = RG;
-}
-
-const rainFunction = () => {
-  let rain = document.createElement("span");
-  let cont_rain = document.getElementsByClassName("container_rain");
-  let left = Math.floor(Math.random() * (310 - 65) + 65);
-  let duration = Math.random() * 5;
-
-  rain.classList.add("rain");
-  cont_rain[0].appendChild(rain);
-  rain.style.left = left + "px";
-  rain.style.animationDuration = 1 + duration;
-
-  setTimeout(() => {
-    cont_rain[0].removeChild(rain);
-  }, 1500);
-};
-
-setInterval(() => {
-  rainFunction();
-}, 250);
-
-/* ------------- FUNÇÃO PARA VERIFICAR E ENVIAR DADOS ------------------ */
 function fetchDatas(event) {
   event.preventDefault();
 
   if (!checkNome) {
     createDisplayMsgError(
-      "O nome não pode conter números ou caracteres especiais!"
+      "O nome não pode conter numeros ou caracteres especiais"
     );
     return;
   }
 
   if (!checkEmail(email.value)) {
     createDisplayMsgError(
-      "O nome não pode conter números ou caracteres especiais!"
+      "O nome não pode conter numeros ou caracteres especiais"
     );
     return;
   }
-
   if (!checkPasswordMatch()) {
-    createDisplayMsgError("As senhas digitadas não coincidem!");
+    createDisplayMsgError("As senhas digitadas não são iguais");
     return;
   }
-
   const senhaError = checkPasswordStrength(senha.value);
   if (senhaError) {
     createDisplayMsgError(senhaError);
     return;
   }
-
-  if (Celular.value && /[A-Za-zÀ-ÿ]/.test(Celular.value)) {
-    createDisplayMsgError("O telefone deve conter apenas números");
+  if (!checkNome) {
+    createDisplayMsgError(
+      "O nome não pode conter numeros ou caracteres especiais"
+    );
+    return;
+  }
+  if (celular.value && /[A-Za-zÁ-ÿ]/.test(celular.value)) {
+    createDisplayMsgError("O telefone deve conter apenas numeros");
     return;
   }
 
@@ -214,16 +122,25 @@ function fetchDatas(event) {
     nome: nome.value,
     email: email.value,
     senha: senha.value,
-    celular: Celular.value,
-    cpf: CPF.value,
-    rg: RG.value,
+    Celular: Celular.value,
+    CPF: CPF.value,
+    RG: RG.value,
   };
 
-  console.log("Formulário Enviado: ", JSON.stringify(formData, null, 2));
+  console.log("formulario enviado:", JSON.stringify(formData, null, 2));
 }
-/* --------------------------------------------------------------------- */
 
-formulario.addEventListener("submit", fetchDatas);
+formulario.addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log(nome.value);
+  console.log(email.value);
+  console.log(senha.value);
+  console.log(ConSenha.value);
+  console.log(Celular.value);
+  console.log(CPF.value);
+  console.log(RG.value);
+  console.log(msgError.value);
+});
 
 nome.addEventListener("input", () => {
   if (nome.value && !checkNome()) {
@@ -250,9 +167,4 @@ senha.addEventListener("input", () => {
     createDisplayMsgError("");
   }
 });
-
 Celular.addEventListener("input", maskPhoneNumber);
-
-CPF.addEventListener("input", maskCPF);
-
-RG.addEventListener("input", maskRG);
