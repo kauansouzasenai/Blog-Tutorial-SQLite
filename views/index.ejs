@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atividade Formulario</title>
 
-    <link rel="stylesheet" href="/static/styles/styles.css" />
+    <link rel="stylesheet" href="../static/styles/styles.css" />
 
-    <script src="/static/scripts/scripts.js" defer></script>
+    <!-- <script src="/static/scripts/cadastro.js" defer></script> -->
   </head>
   <body>
+    <div class="container_rain">
+      <span class="cloud"></span>
+      <span class="cloud"></span>
+      <span class="cloud"></span>
+    </div>
+
     <section class="container">
       <div class="image_container">
         <h1>Crie sua conta</h1>
@@ -18,38 +24,62 @@
           descubra novos lugares ao redor do mundo !
         </p>
       </div>
-      <form id="cadastroForm">
+      <form id="cadastroForm" method="post" action="/cadastro">
         <div class="title">
           <h1>Cadastre-se</h1>
           <p>Preencha os campos abaixo e torne-se parte da nossa comunidade.</p>
         </div>
         <div class="input_data">
-          <input type="text" id="nome" name="nome" required />
+          <input type="text" id="nome" name="nome" value="Kauan" required />
           <label for="">Nome</label>
         </div>
 
         <div class="input_data">
-          <input type="email" id="email" name="email" required />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="Kauan@gmail.com"
+            required
+          />
           <label for="">Email</label>
         </div>
         <div class="input_data">
-          <input type="password" id="senha" name="senha" required />
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            value="Kauanvitor-1"
+            required
+          />
           <label for="">Senha</label>
         </div>
         <div class="input_data">
-          <input type="password" id="ConSenha" name="ConSenha" required />
+          <input
+            type="password"
+            id="ConSenha"
+            name="ConSenha"
+            value="Kauanvitor-1"
+            required
+          />
           <label for="">Confirmar Senha</label>
         </div>
         <div class="input_data">
-          <input type="tel" id="Celular" name="Celular" required />
+          <input
+            type="tel"
+            id="Celular"
+            name="Celular"
+            value="19999999999"
+            required
+          />
           <label for="">Celular</label>
         </div>
         <div class="input_data">
-          <input type="text" id="CPF" name="CPF" required />
+          <input type="text" id="CPF" name="CPF" value="47447474474" required />
           <label for="">CPF</label>
         </div>
         <div class="input_data">
-          <input type="text" id="RG" name="RG" required />
+          <input type="text" id="RG" name="RG" value="122222222" required />
           <label for="">RG</label>
         </div>
         <div class="btnArea">
