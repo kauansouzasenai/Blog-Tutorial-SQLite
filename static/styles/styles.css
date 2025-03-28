@@ -21,6 +21,72 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.container_rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 100vh;
+  background-color: transparent;
+}
+
+.cloud {
+  position: absolute;
+  width: 250px;
+  height: 100px;
+  background: url("../images/ai236l8iuw211.webp") center / cover no-repeat;
+  filter: drop-shadow(2px 2px 2px #0bbd2c);
+}
+
+.cloud:nth-child(1) {
+  top: 2.5%;
+  left: 5%;
+}
+
+.cloud:nth-child(2) {
+  z-index: 3000;
+  top: 2.5%;
+  left: 24%;
+}
+
+.cloud:nth-child(3) {
+  z-index: 3000;
+  top: 2.5%;
+  left: 50%;
+}
+
+.rain {
+  width: 50px;
+  height: 50px;
+  z-index: 1000;
+  position: absolute;
+  top: 90px;
+
+  background: url("../images/pngtree-beautiful-green-leaf-png-image_6293936.png")
+    center / cover no-repeat;
+
+  transform-origin: bottom;
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+
+  60% {
+    transform: translateY(80vh) scaleY(1);
+  }
+  80% {
+    transform: translateY(80vh) scaleY(0.2);
+  }
+  100% {
+    transform: translateY(80vh) scaleY(0.2);
+    opacity: 0;
+  }
+}
+
 .container {
   width: 80%;
   height: 80%;
@@ -180,4 +246,38 @@ body {
 
 #cadastroForm .input_data:nth-child(8) {
   width: 100%;
+}
+
+@media (max-width: 500px) {
+  .container {
+    height: 90%;
+    grid-template-rows: 30% 70%;
+    grid-template-columns: 1fr;
+  }
+
+  .image_container {
+    border-radius: 20px;
+  }
+
+  .cloud:nth-child(1) {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: -5%;
+    left: 0%;
+  }
+  .cloud:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: -5%;
+    left: 5%;
+  }
+  .cloud:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: -5%;
+    left: 26%;
+  }
 }
