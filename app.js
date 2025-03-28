@@ -15,7 +15,10 @@ db.serialize(() => {
   );
 });
 
-app.use("/static", express.static(__dirname));
+app.use("/static", express.static(__dirname + "/static"));
+
+//Configurar EJS como o motor de visualização
+app.set("view engine", "ejs");
 
 const index =
   "<a href='/'>Home</a><br><a href='/login'>Login</a><br><a href='/senha'>Senha</a><br><a href='/cadastro'>Cadastro</a>";
@@ -25,15 +28,19 @@ const Cadastro = 'Vc esta na pagina "cadastro" <br><a href="/">Voltar</a>';
 
 /* Método express.get necessita de dois paârametros
 na ARROW FUNCTION, o primeiro são os dados do servidor(REQUISITION - 'REQ')
-o segundo, são os dados que serão enviador para ao cliente (RESULE - "RES")
+o segundo, são os dados que serão enviados para ao cliente (RESULE - "RES")
 
 */
 app.get("/", (req, res) => {
-  res.send(index);
+  res.render("index");
 });
 
 app.get("/login", (req, res) => {
-  res.send(Sobre);
+  res.render("login");
+});
+
+app.post("/login", (req, res) => {
+  res.send("login não implementado");
 });
 
 app.get("/senha", (req, res) => {
