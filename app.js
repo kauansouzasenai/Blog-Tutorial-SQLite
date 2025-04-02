@@ -32,10 +32,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 const index =
-  "<a href='/'>Home</a><br><a href='/login'>Login</a><br><a href='/senha'>Senha</a><br><a href='/cadastro'>Cadastro</a>";
+  "<a href='/'>Home</a><br><a href='/login'>Login</a><br><a href='/senha'>Senha</a><br><a href='/cadastro'>cadastro</a>";
 const Sobre = 'Vc esta na pagina "login" <br><a href="/">Voltar</a>';
-const Login = 'Vc esta na pagina "senha" <br><a href="/">Voltar</a>';
-const Cadastro = 'Vc esta na pagina "cadastro" <br><a href="/">Voltar</a>';
+const login = 'Vc esta na pagina "senha" <br><a href="/">Voltar</a>';
+const cadastro = 'Vc esta na pagina "cadastro" <br><a href="/">Voltar</a>';
 
 /* Método express.get necessita de dois paârametros
 na ARROW FUNCTION, o primeiro são os dados do servidor(REQUISITION - 'REQ')
@@ -43,38 +43,73 @@ o segundo, são os dados que serão enviados para ao cliente (RESULE - "RES")
 
 */
 app.get("/", (req, res) => {
+  console.log("GET /index");
   //Rota raiz do meu servidor, acesse o browser com o endereço http://localhost:8000
-  res.render("index");
+  res.render("");
+});
+
+app.get("/sobre", (req, res) => {
+  console.log("GET /sobre");
+  res.render("sobre");
 });
 
 app.get("/login", (req, res) => {
+  console.log("GET /login");
   res.render("login");
 });
 
 app.post("/login", (req, res) => {
+  console.log("POST /login não implementado");
   res.send("login não implementado");
 });
 
 app.get("/cadastro", (req, res) => {
-  res.send(Cadastro);
+  console.log("GET /cadastro");
+  res.render("cadastro");
 });
 
 app.get("/cadastro", (req, res) => {
+  console.log("GET /cadastro");
   !req.body
     ? console.log(`Body vazio: ${req.body}`)
     : console.log(`${JSON.stringify(req.body)}`);
-  res.send(Cadastro);
+  res.send(cadastro);
 });
 
 app.post("/cadastro", (req, res) => {
+  console.log("POST /cadastro");
   req.body
     ? console.log(JSON.stringify(req.body))
     : console.log(`Body vazio: ${req.body}`);
+  const { nome, senha, email, celular, rg, cpf } = req.body;
+  // 1 validação de campos
 
-  res.send(
-    `Bem vindo usuario: ${req.body.nome}, seu email é ${req.body.email}`
-  );
+  // 2 verificar se o usuario ja esta cadastrado
+  const query =
+    "SELECT * FROM users WHERE email = ? OR cpf = ? OR rg = ? OR nome = ?";
+  db.get(query, [email, cpf, rg, nome], (err, row) => {
+    if (err) throw err;
+
+    if (row) {
+      // A variavel 'row' ira retornar os dados do banco de dados
+      // executado atraves do SQL, variavel query
+      res.send("usuario ja cadastrado, refaça o cadastro");
+    } else {
+      // 3 Se o usuario nao existe ira efetuar o cadastro
+      const insertQuery =
+        "INSERT INTO users (nome, senha, email, celular, rg, cpf) VALUES (?, ?, ?, ?, ?, ?)";
+      db.run(insertQuery, [nome, senha, email, celular, cpf, rg], (err) => {
+        if (err) throw err;
+        res.send("Usuario cadastrado, com sucesso");
+      });
+    }
+  });
 });
+
+//   res.send(
+//     `Bem vindo usuario: ${req.body.nome}, seu email é ${req.body.email}`
+//   );
+// });
 
 // app.listes() deve ser o ultimo comando da aplicação (app.js)
 app.listen(PORT, () => {

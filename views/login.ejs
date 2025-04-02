@@ -10,6 +10,8 @@
     <script src="/static/scripts/login.js" defer></script>
   </head>
   <body>
+    <%- include("menu") %> <%- include("footer") %>
+
     <div class="container_rain">
       <span class="cloud"></span>
       <span class="cloud"></span>
@@ -59,7 +61,7 @@
           <label for="">RG</label>
         </div> -->
         <div class="btnArea">
-          <p class="msgError">Mensagem de ERRO!</p>
+          <p class="msgError"></p>
           <button id="btnSubmit" type="submit">Enviar</button>
         </div>
       </form>
