@@ -68,6 +68,14 @@ app.get("/cadastro", (req, res) => {
   res.render("cadastro");
 });
 
+app.get("/usuarios", (req, res) => {
+  const query = "SELECT * FROM users";
+  db.get(query, [], (err, row) => {
+    console.log(`GET /usuarios &{JSON.stringify(row)}`);
+    res.send("blablabla");
+  });
+});
+
 app.get("/cadastro", (req, res) => {
   console.log("GET /cadastro");
   !req.body
