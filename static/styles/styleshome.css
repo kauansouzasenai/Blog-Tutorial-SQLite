@@ -57,12 +57,13 @@ header nav a {
   margin-right: 16px;
 }
 
-header nav a:hover {
-  color: black;
+header nav .menu_sobre {
+  background-color: red;
 }
 
-header nav a:hover::after {
-  color: url(../images/End_Portal__Active_-removebg-preview.png);
+header nav .menu_sobre:hover::after {
+  content: "";
+  background: url("../images/End_Portal__Active_-removebg-preview.png");
 }
 
 footer {
