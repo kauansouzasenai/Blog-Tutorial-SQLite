@@ -45,17 +45,24 @@ o segundo, são os dados que serão enviados para ao cliente (RESULE - "RES")
 app.get("/", (req, res) => {
   console.log("GET /index");
   //Rota raiz do meu servidor, acesse o browser com o endereço http://localhost:8000
-  res.render("");
+  res.render("pages/index", {
+    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
+  });
 });
 
 app.get("/sobre", (req, res) => {
   console.log("GET /sobre");
-  res.render("sobre");
+  res.render("pages/sobre");
 });
 
 app.get("/login", (req, res) => {
   console.log("GET /login");
-  res.render("login");
+  res.render("pages/login");
+});
+
+app.get("/dashboard", (req, res) => {
+  console.log("GET /dashboard");
+  res.render("pages/dashboard");
 });
 
 app.post("/login", (req, res) => {
@@ -65,7 +72,7 @@ app.post("/login", (req, res) => {
 
 app.get("/cadastro", (req, res) => {
   console.log("GET /cadastro");
-  res.render("cadastro");
+  res.render("pages/cadastro");
 });
 
 app.get("/usuarios", (req, res) => {
