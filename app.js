@@ -4,6 +4,8 @@ const sqlite3 = require("sqlite3"); // importa a biblioteca do SQLite3
 
 const PORT = 8000; // Porta do servidor HTTP
 
+let config = { titulo: "", rodape: "" };
+
 const app = express(); // intancia para uso da Biblioteca express
 
 // Cria uma conexão com o banco de dados
@@ -44,31 +46,29 @@ o segundo, são os dados que serão enviados para ao cliente (RESULE - "RES")
 */
 app.get("/", (req, res) => {
   console.log("GET /index");
+
+  config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
   //Rota raiz do meu servidor, acesse o browser com o endereço http://localhost:8000
-  res.render("pages/index", {
-    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
-  });
+  res.render("pages/index", config);
 });
 
 app.get("/sobre", (req, res) => {
   console.log("GET /sobre");
-  res.render("pages/sobre", {
-    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
-  });
+
+  config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
+  res.render("pages/sobre", config);
 });
 
 app.get("/login", (req, res) => {
   console.log("GET /login");
-  res.render("pages/login", {
-    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
-  });
+  config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
+  res.render("pages/login", config);
 });
 
 app.get("/dashboard", (req, res) => {
   console.log("GET /dashboard");
-  res.render("pages/dashboard", {
-    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
-  });
+  config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
+  res.render("pages/dashboard", config);
 });
 
 app.post("/login", (req, res) => {
@@ -78,16 +78,15 @@ app.post("/login", (req, res) => {
 
 app.get("/cadastro", (req, res) => {
   console.log("GET /cadastro");
-  res.render("pages/cadastro", {
-    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
-  });
+  config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
+  res.render("pages/cadastro", config);
 });
 
 app.get("/usuarios", (req, res) => {
   const query = "SELECT * FROM users";
   db.get(query, [], (err, row) => {
     console.log(`GET /usuarios &{JSON.stringify(row)}`);
-    res.send("blablabla");
+    res.render("partials/usertable", config);
   });
 });
 

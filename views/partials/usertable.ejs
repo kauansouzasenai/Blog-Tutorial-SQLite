@@ -1,4 +1,6 @@
+<% for( let ind = 1; ind < 2; ind++) { %>
 <table>
+  <tbody>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -7,18 +9,20 @@
       <th scope="col">Celular</th>
     </tr>
   </thead>
+</table>
+</tbody>
+<%}%> 
+<% for( let index = 1; index < 8; index++) { %>
+<table>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>NOME</td>
-      <td>EMAIL</td>
-      <td>CELULAR</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>NOME</td>
-      <td>EMAIL</td>
-      <td>CELULAR</td>
-    </tr>
+    <thead>
+      <tr>
+        <td><%= index %></td>
+        <td>NOME</td>
+        <td>EMAIL</td>
+        <td>CELULAR</td>
+      </tr>
+    </thead>
   </tbody>
 </table>
+<%}%>
