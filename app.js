@@ -52,17 +52,23 @@ app.get("/", (req, res) => {
 
 app.get("/sobre", (req, res) => {
   console.log("GET /sobre");
-  res.render("pages/sobre");
+  res.render("pages/sobre", {
+    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
+  });
 });
 
 app.get("/login", (req, res) => {
   console.log("GET /login");
-  res.render("pages/login");
+  res.render("pages/login", {
+    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
+  });
 });
 
 app.get("/dashboard", (req, res) => {
   console.log("GET /dashboard");
-  res.render("pages/dashboard");
+  res.render("pages/dashboard", {
+    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
+  });
 });
 
 app.post("/login", (req, res) => {
@@ -72,7 +78,9 @@ app.post("/login", (req, res) => {
 
 app.get("/cadastro", (req, res) => {
   console.log("GET /cadastro");
-  res.render("pages/cadastro");
+  res.render("pages/cadastro", {
+    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
+  });
 });
 
 app.get("/usuarios", (req, res) => {
