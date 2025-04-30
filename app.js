@@ -1,6 +1,7 @@
 const bodyParser = require("body-parser");
 const express = require("express"); // importa a biblioteca do Express
 const sqlite3 = require("sqlite3"); // importa a biblioteca do SQLite3
+const session = require("express-session");
 
 const PORT = 8000; // Porta do servidor HTTP
 
@@ -18,6 +19,14 @@ db.serialize(() => {
      email TEXT,  celular TEXT, cpf TEXT, rg TEXT)`
   );
 });
+
+app.use(
+  session({
+    secret: "qualquersenha",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 // é a variavel interno do nodejs que guarda o caminho absoluto do projeto, no SO
 console.log(__dirname);
@@ -73,7 +82,23 @@ app.get("/dashboard", (req, res) => {
 
 app.post("/login", (req, res) => {
   console.log("POST /login não implementado");
-  res.send("login não implementado");
+  const { nome, senha } = req.body;
+
+  // Consultar o usuario no banco de dados
+  const query = "SELECT * FROM users WHERE nome = ? AND senha = ?";
+  db.get(query, [nome, senha], (err, row) => {
+    if (err) throw err;
+
+    // Se usuario valido -> registra a sessão e redireciona para o dasboard
+    if (row) {
+      req.session.logged = true;
+      req.session.nome = nome;
+      res.redirect("/dashboard");
+    } else {
+      res.send("Usuario invalido");
+    }
+  });
+  // res.send("login não implementado");
 });
 
 app.get("/cadastro", (req, res) => {
