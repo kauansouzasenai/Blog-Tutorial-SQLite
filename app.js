@@ -58,26 +58,34 @@ app.get("/", (req, res) => {
 
   config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
   //Rota raiz do meu servidor, acesse o browser com o endereço http://localhost:8000
-  res.render("pages/index", config);
+  res.render("pages/index", { ...config, req: req });
+  console.log(
+    `${
+      req.session.username
+        ? `User ${req.session.username} logged in from IP ${req.connection.remoteAddress}`
+        : "User not logged in."
+    }  `
+  );
+  // res.redirect("/cadastro"); // Redireciona para a ROTA cadastro
 });
 
 app.get("/sobre", (req, res) => {
   console.log("GET /sobre");
 
   config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
-  res.render("pages/sobre", config);
+  res.render("pages/sobre", { ...config, req: req });
 });
 
 app.get("/login", (req, res) => {
   console.log("GET /login");
   config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
-  res.render("pages/login", config);
+  res.render("pages/login", { ...config, req: req });
 });
 
 app.get("/dashboard", (req, res) => {
   console.log("GET /dashboard");
   config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
-  res.render("pages/dashboard", config);
+  res.render("pages/dashboard", { ...config, req: req });
 });
 
 app.post("/login", (req, res) => {
@@ -101,26 +109,50 @@ app.post("/login", (req, res) => {
   // res.send("login não implementado");
 });
 
+app.get("/dashboard", (req, res) => {
+  if (req.session.loggedin) {
+    const query = "SELECT * FROM users";
+
+    db.all(query, (err, rows) => {
+      if (err) throw err;
+      //if (row) {
+      console.log(rows);
+      res.render("pages/dashboard", { ...config, row: rows, req: req });
+      //}
+    });
+  } else {
+    res.send("Ja era");
+  }
+});
+
 app.get("/cadastro", (req, res) => {
   console.log("GET /cadastro");
   config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", roodape: "" };
-  res.render("pages/cadastro", config);
+  res.render("pages/cadastro", { ...config, req: req });
 });
 
 app.get("/usuarios", (req, res) => {
   const query = "SELECT * FROM users";
   db.get(query, [], (err, row) => {
     console.log(`GET /usuarios &{JSON.stringify(row)}`);
-    res.render("partials/usertable", config);
+    res.render("partials/usertable", { ...config, req: req });
+  });
+});
+
+app.get("/logout", (req, res) => {
+  // Exemplo de uma rota (END POINT) controlado pela sessão do usuário logado.
+  req.session.destroy(() => {
+    res.redirect("/login");
   });
 });
 
 app.get("/cadastro", (req, res) => {
   console.log("GET /cadastro");
-  !req.body
-    ? console.log(`Body vazio: ${req.body}`)
-    : console.log(`${JSON.stringify(req.body)}`);
-  res.send(cadastro);
+  if (!req.session.loggedin) {
+    res.render("pages/cadastrar", { req: req });
+  } else {
+    res.redirect("/dashboard", { req: req });
+  }
 });
 
 app.post("/cadastro", (req, res) => {
@@ -157,6 +189,10 @@ app.post("/cadastro", (req, res) => {
 //     `Bem vindo usuario: ${req.body.nome}, seu email é ${req.body.email}`
 //   );
 // });
+
+app.use("*", (req, res) => {
+  res.status(404).render("pages/404", { ...config, req: req });
+});
 
 // app.listes() deve ser o ultimo comando da aplicação (app.js)
 app.listen(PORT, () => {

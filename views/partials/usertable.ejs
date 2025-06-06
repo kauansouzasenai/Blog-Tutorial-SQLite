@@ -1,22 +1,24 @@
 <table>
   <tbody>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Email</th>
-      <th scope="col">Celular</th>
-    </tr>
+    <thead class="usertable">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Senha</th>
+        <th scope="col">Celular</th>
+      </tr>
+    </thead>
+    <% let i=1; dados.forEach(user => {%>
+      <tr <% req.session.loggedin) { 
+        <td><%= user.id  %></td>
+        <td><%= user.nome %></td>
+        <td><%= user.email %></td>
+        <td><%= user.sennha  %></td>
+        <td><%= user.celular  %></td>
+      </tr>
+      <% index++;}); %>
 
-    <% for( let index = 1; index < 50; index++) { %>
-
-    <tr>
-      <% if (index % 5 == 0) { %>
-
-      <td><%= index %></td>
-      <td>NOME</td>
-      <td>EMAIL</td>
-      <td>CELULAR</td>
-    </tr>
-    <%}%> <%}%>
+  
   </tbody>
 </table>
